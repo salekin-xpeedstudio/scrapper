@@ -1,0 +1,73 @@
+{
+  title: '7 Most Common WordPress Errors With Fixes',
+  description: 'Solution to common WordPress errors like WordPress White Screen of Death,Error establishing database connection, Maintenance Mode Following Upgrade etc.',
+  url: 'https://wpmet.com/most-common-wordpress-errors/',
+  favicon: 'https://wpmet.com/wp-content/uploads/2021/06/wpmet_favicon.png',
+  content: [
+    { text: '7 Most Common WordPress Errors With Solution', tag: 'h1' },
+    {
+      text: '7 Most Common WordPress Errors With Reason and Solution:',
+      tag: 'h2'
+    },
+    { text: 'WordPress White Screen of Death (WSOD)', tag: 'h3' },
+    {
+      text: 'What is the reason for WordPress White Screen of Death (WSOD)?',
+      tag: 'h4'
+    },
+    { text: 'How to fix WordPress White Screen of Death?', tag: 'h4' },
+    {
+      text: 'Error establishing database connection WordPress',
+      tag: 'h3'
+    },
+    {
+      text: 'What is the reason for Error establishing database connection?',
+      tag: 'h4'
+    },
+    {
+      text: 'How to fix Error establishing database connection WordPress',
+      tag: 'h4'
+    },
+    { text: 'Maintenance Mode Following Upgrade', tag: 'h3' },
+    { text: 'Why do you see the maintenance mode message?', tag: 'h4' },
+    {
+      text: 'How to fix maintenance mode issues in WordPress?',
+      tag: 'h4'
+    },
+    { text: 'WordPress Failed Auto-Upgrade', tag: 'h3' },
+    { text: 'What causes WordPress Failed Auto-Upgrade?', tag: 'h4' },
+    { text: 'How to solve WordPress Failed Auto-Upgrade?', tag: 'h4' },
+    { text: 'WordPress Connection Timed Out', tag: 'h3' },
+    { text: 'What causes WordPress Connection Timed Out?', tag: 'h4' },
+    { text: 'How to solve WordPress Connection Timed Out?', tag: 'h4' },
+    { text: 'Internal Server Error WordPress', tag: 'h3' },
+    {
+      text: 'What causesInternal Server Error in WordPress?',
+      tag: 'h4'
+    },
+    {
+      text: 'How to fix Internal Server Error in WordPress?',
+      tag: 'h4'
+    },
+    { text: 'Maximum Execution Time Exceeded in WordPress', tag: 'h3' },
+    {
+      text: 'What causes Maximum Execution Time Exceeded in WordPress?',
+      tag: 'h4'
+    },
+    {
+      text: 'How to fix Maximum Execution Time Exceeded in WordPress?',
+      tag: 'h4'
+    },
+    { text: 'Final Words', tag: 'h2' },
+    {
+      text: 'Twenty Twenty-Two WordPress Theme Things You Need to Know',
+      tag: 'h3'
+    },
+    {
+      text: 'How to Run a WooCommerce Flash Sale in 5 Simple Steps (Ultimate Guide)',
+      tag: 'h3'
+    },
+    { text: 'Leave a Reply Cancel reply', tag: 'h3' },
+    { text: 'Get Subscribed Today!', tag: 'h2' },
+    { text: 'Privacy Overview', tag: 'h4' }
+  ]
+}
