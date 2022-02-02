@@ -2,20 +2,21 @@ class DynamicWebScrape {
     constructor(url) {
         this.url = url;
     }
-    isValidUrl(_string) {
+    isValidUrl(string) {
         const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-        return matchPattern.test(_string);
+        return matchPattern.test(string);
     }
-    htmlDecodeWithLineBreaks(html) {
-        var breakToken = '_______break_______',
-            lineBreakedHtml = html.replace(/<br\s?\/?>/gi, breakToken).replace(/<p\.*?>(.*?)<\/p>/gi, breakToken + '$1' + breakToken);
-        return $('<div>').html(lineBreakedHtml).text().replace(new RegExp(breakToken, 'g'), '\n');
+    cleanText(str) {
+        str = str.replace(/[^\x00-\x7F]/gm, "").trim(); //remove non-ascii characters
+        str = str.replaceAll('\t', ' '); //converting all tabs into one space
+        str = str.replace(/  +/gm, ' '); //converting multiple space into one
+        str = str.replace(/\n+/gm, '\n'); //converting multiple new line into one [use <br> for page render]
+        return str;
     }
     async content() {
         const puppeteer = require('puppeteer');
-        const url = this.url;
         const cheerio = require('cheerio');
-        let result = new Object();
+        let result = {};
 
         return puppeteer
             .launch()
@@ -29,6 +30,7 @@ class DynamicWebScrape {
             })
             .then(html => {
                 const $ = cheerio.load(html, null, false);
+                $('form, nav, header, footer, script, figure, img').remove();
                 result.title = $('title').text();
                 result.description = $('meta[name="description"]').attr('content');
                 result.url = this.url;
@@ -50,16 +52,21 @@ class DynamicWebScrape {
                 let headings = $('h1, h2, h3, h4, h5, h6');
 
                 for (let i = 0; i < headings.length; i++) {
-                    let newObj = { text: $(headings[i]).text().replace(/[^\x00-\x7F]/g, "").trim(), tag: $(headings[i])[0].name }
-                        //newObj.text = newObj.text.replaceAll('\n', ' ');
-                    newObj.text = newObj.text.replaceAll('\t', ' ');
-                    newObj.text = newObj.text.replace(/  +/g, ' ');
+                    let newObj = {};
+                    //preparing title from heading
+                    newObj.title = this.cleanText($(headings[i]).text());
+
+                    //tag name of the heading
+                    newObj.tag = $(headings[i])[0].name;
+
+                    //getting html markup as string between current heading and next one
+                    newObj.text = $(headings[i]).nextUntil($(headings[i + 1])).toString();
+
+                    //stripping text from tags except p|li|div then stripping text with line break for rest of them
+                    newObj.text = newObj.text.replace(/<(?!\/?(p|li|div)|>)[^>]*>/gm, '').replace(/<[^>]+>/gm, '\n');
+                    newObj.text = this.cleanText(newObj.text);
 
                     result.content.push(newObj)
-
-                    //console.log($(headings[i]).nextUntil($(headings[i + 1])).html());
-                    console.log($(headings[i]).nextUntil($(headings[i + 1])).toString().replace(/<(form|script|footer|header|nav).*?>.*?<\/(form|script|footer|header|nav)>/g, '').replace(/<(?!\/?(p|li|div)|>)[^>]*>/gm, '').replace(/<[^>]+>/g, '\n'));
-                    console.log('---');
                 }
 
                 return result;
